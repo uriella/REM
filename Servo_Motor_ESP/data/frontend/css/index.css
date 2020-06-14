@@ -1,0 +1,119 @@
+html {
+    background-color: antiquewhite;
+}
+
+body {
+    font-family: 'Raleway', 'sans-serif';
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.keyboard-container {
+    background-color: #fff;
+    margin: 32px auto;
+    width: 80%;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    align-items: center;
+    justify-content: center;
+}
+
+.keyboard-desc{
+    margin: auto 10px;
+    padding: 20px 0;
+    display: inline-block;
+}
+
+.slider-container {
+    background-color: #fff;
+    /* display: none; */
+    margin: 32px auto;
+    width: 80%;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-control {
+    margin: 0 16px;
+    width: 250px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.slider input[type=range][orient=vertical]{
+    writing-mode: bt-lr !important;
+    -webkit-appearance: slider-vertical !important;
+    margin: 16px;
+    width: 8px;
+    height:200px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s !important;
+    transition: opacity 0.2s;
+}
+
+.slider input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    outline: none;
+}
+
+.slider input::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    outline: none;
+}
+
+.reset-button {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.ip-container {
+    background-color: #fff;
+    margin: 16px auto;
+    padding: 16px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.ip-container__buttons {
+    margin: 8px auto;
+}
+
+.ip-container__buttons button {
+
+}
+
+@media (min-width: 350px) and (max-height: 700px) {
+    .slider-control {
+        width: 90px;
+        margin: 0 8px;
+    }
+}
