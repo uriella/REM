@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REM - Enigma Dynamics</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/connection.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <link rel="stylesheet" href="css/keyboard.css">
+    <link rel="stylesheet" href="css/macro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet"> 
+</head>
+<body>
+  <h1>REM - Enigma Dynamics [v.0.1]</h1>
+  <hr>
+  <div class="windowCurrent">
+      
+  </div>
+  <div class="main-container">
+    <div class="container-side">
+        <div class="container">
+            <div class="keyboard-container">
+                <h3>Keyboard<br>Roadmap</h3>
+                <div class="keyboard-desc">
+                        <h5>W & S</h5>
+                        <p>W: move right<br>S: move left</p>
+                </div>
+                <div class="keyboard-desc">
+                        <h5>A & D</h5>
+                        <p>A: open grip<br>S: close grip</p>
+                </div>
+                <div class="keyboard-desc">
+                        <h5>Q & E</h5>
+                        <p>Q: move up<br>E: move down</p>
+                </div>
+                <div class="keyboard-desc">
+                        <h5>Z & C</h5>
+                        <p>Z: move forward<br>C: move back</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="slider-container">
+                    <div class="slider-control">
+                        <div class="slider slider-1">
+                            <p>Base</p>
+                            <input type="range" name="" id="" min=0 max=3000 step=50 value="1500" orient="vertical"
+                            onchange="req(sliders[0])" 
+                            oninput="req(sliders[0])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="slider-control">
+                        <div class="slider slider-2">
+                            <p>Grip</p>
+                            <input type="range" name="" id="" min=0 max=3000 step=50 value="1500" orient="vertical"
+                            onchange="req(sliders[1])" 
+                            oninput="req(sliders[1])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="slider-control">
+                        <div class="slider slider-3">
+                            <p>Up/Down</p>
+                            <input type="range" name="" id="" min=0 max=3000 step= 50 value="1500" orient="vertical"
+                            onchange="req(sliders[2])" 
+                            oninput="req(sliders[2])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="slider-control">
+                        <div class="slider slider-4">
+                            <p>forward/back</p>
+                            <input type="range" name="" id="" min=0 max=3000 step=50 value="1500" orient="vertical"
+                            onchange="req(sliders[3])" 
+                            oninput="req(sliders[3])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <button onClick="reset()" class="reset-button">
+                    Reset Value
+                </button>
+            </div>
+      </div>
+    <div class="container-side">
+        <div class="container">
+            <div class="ip-container">
+                <div class="ip-container__status-bar">
+                    <span class="ip-container__status">Not Connected</span>
+                </div>
+                <input type="text" placeholder="IP Address" value="192.168.0.30">
+                <div class="ip-container__buttons">
+                    <button onClick="openWebsocket()" id="connect">CONNECT</button>
+                    <button onClick="closeWebsocket()" id="disconnect" disabled>DISCONNECT</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="macro-container">
+                <h1>Macro</h1>
+                <div class="form">
+                    <div class="macro__form form-name">
+                        <label for="macro-name">Macro Name</label>
+                        <input type="text" name="macro-name" id="macro-name">
+                    </div>
+                    <div class="macro__form-movement">
+                        <div class="macro__form movement-number">
+                        </div>
+                        <div class="macro__form movement-name">
+                            <label for="movement-name">Movement Name</label>
+                            <input type="text" name="movement-name" id="movement-name" required>
+                        </div>
+                        <div class="macro__form movement-angle1">
+                            <label for="angle-1">Angle 1</label>
+                            <input type="number" name="angle-1" id="angle-1" min=0 max=3000 required>
+                        </div>
+                        <div class="macro__form movement-angle2">
+                            <label for="angle-2">Angle 2</label>
+                            <input type="number" name="angle-2" id="angle-2" min=0 max=3000 required>
+                        </div>
+                        <div class="macro__form movement-angle3">
+                            <label for="angle-3">Angle 3</label>
+                            <input type="number" name="angle-3" id="angle-3" min=0 max=3000 required>
+                        </div>
+                        <div class="macro__form movement-angle4">
+                            <label for="angle-4">Angle 4</label>
+                            <input type="number" name="angle-4" id="angle-4" min=0 max=3000 required>
+                        </div>
+                        <div class="macro__form movement-controls">
+                            <button class="movement-button-add">Add New Movement</button>
+                            <button class="movement-button-delete">Delete Current Movement</button>
+                        </div>
+                    </div>
+                    <div class="macro__form-submit">
+                        <button class="form-button-add">Add Macro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+    <div class="container">
+        <div class="macro__list-container">
+            <h1>List of available macros: </h1>
+            <div class="macro__list">
+                <ul></ul>
+            </div>
+            <button class="macro__list-button">Fetch Macros</button>
+        </div>
+        <div class=movement__list-container">
+            <h1 class="movement__list-name"></h1>
+            <div class="movement__list">
+                <ul></ul>
+            </div>
+            <button class="movement__list-button">Execute Movement</button>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script src="js/macro.js"></script>
+</body>
+</html>

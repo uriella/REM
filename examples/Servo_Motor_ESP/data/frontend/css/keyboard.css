@@ -1,0 +1,16 @@
+.keyboard-container {
+    background-color: #fff;
+    margin: 32px auto;
+    width: 80%;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    align-items: center;
+    justify-content: center;
+}
+
+.keyboard-desc{
+    margin: auto 10px;
+    padding: 20px 0;
+    display: inline-block;
+}

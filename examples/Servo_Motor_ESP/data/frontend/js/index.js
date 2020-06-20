@@ -29,6 +29,8 @@ const sliders = [
 ];
 
 const ipSelect = document.querySelector(".ip-select");
+const sliderContainer = document.querySelector('.slider-container');
+const networkStatusSelector = document.querySelector('.ip-container__status');
 
 /*
     Variables
@@ -45,6 +47,15 @@ let ws = null;
 /*
     Functions
 */
+const operations = {
+  '+': (operand1, operand2) => {
+        return operand1 + operand2;
+  },
+  '-': (operand1, operand2) => {
+        return operand1 - operand2;
+  }
+};
+
 const updateDisplayText = (slider) => {
   slider.range = slider.input.value;
 
@@ -58,6 +69,49 @@ const updateDisplayText = (slider) => {
   slider.text.appendChild(text);
 };
 
+const updateSliderValueKeyboard = (sliders, operators) => {
+  const STEP = 50;
+  
+  sliders.range = operations[operators](+sliders.range, STEP);
+  sliders.input.value = +sliders.range;
+  updateDisplayText(sliders);
+};
+
+const addSliderListener = (event) => {
+
+  switch (event.code) {
+    case "KeyW":
+    case "ArrowUp":
+      updateSliderValueKeyboard(sliders[2], '+');
+      break;
+    case "KeyS":
+    case "ArrowDown":
+      updateSliderValueKeyboard(sliders[2], '-');
+      break;
+    case "KeyD":
+    case "ArrowRight":
+      updateSliderValueKeyboard(sliders[0], '+');
+      break;
+    case "KeyA":
+    case "ArrowLeft":
+      updateSliderValueKeyboard(sliders[0], '-');
+      break;
+    case "KeyE":
+      updateSliderValueKeyboard(sliders[1], '+');
+      break;
+    case "KeyQ":
+      updateSliderValueKeyboard(sliders[1], '-');
+      break;
+    case "KeyC":
+      updateSliderValueKeyboard(sliders[3], '+');
+      break;
+    case "KeyZ":
+      updateSliderValueKeyboard(sliders[3], '-');
+      break;
+  }
+  req();
+}
+
 const openWebsocket = () => {
   ip_address = document.querySelector(".ip-container input").value;
   ws = new WebSocket("ws://" + ip_address + "/end");
@@ -65,11 +119,13 @@ const openWebsocket = () => {
   document.querySelector("#disconnect").disabled = false;
 
   ws.onopen = () => {
-    // document.querySelector(".slider-container").style.display = "block";
+    networkStatusSelector.textContent = "Connected";
+    document.querySelector(".ip-container__status").style.background = "#77AA77";
   };
 
   ws.onclose = () => {
-    // document.querySelector(".slider-container").style.display = "none";
+    networkStatusSelector.textContent = "Not Connected";
+    document.querySelector(".ip-container__status").style.background = "#AA7777";
   };
 };
 
@@ -79,9 +135,14 @@ const closeWebsocket = () => {
   ws.close();
 };
 
-const req = (slider) => {
-  updateDisplayText(slider);
-  ws.send(slider.code + slider.range);
+const req = () => {
+  let code = '';
+  for (let slider of sliders) {
+    code += slider.code + slider.range.toString().padStart(4, "0");
+  }
+  //  console.log('code: ' + code); 
+  /* code expected output: a1000b2000c3000d4000 */
+  ws.send(code);
 };
 
 const res = () => {
@@ -95,6 +156,8 @@ const initialize = () => {
     updateDisplayText(sliders[i]);
   }
 };
+
+
 
 const reset = () => {
   for (let i = 0; i < 4; i++) {
@@ -115,55 +178,10 @@ const reset = () => {
     e/E => Grip Open
 */
 
-document.addEventListener("keydown", (event) => {
-  const STEP = 50;
+const addSliderHandler = (event) => {
+  addSliderListener(event);
+}
 
-  switch (event.code) {
-    case "KeyW":
-    case "ArrowUp":
-      sliders[2].range = +sliders[2].range + STEP;
-      sliders[2].input.value = sliders[2].range;
-      req(sliders[2]);
-      break;
-    case "KeyS":
-    case "ArrowDown":
-      sliders[2].range = +sliders[2].range - STEP;
-      sliders[2].input.value = sliders[2].range;
-      req(sliders[2]);
-      break;
-    case "KeyD":
-    case "ArrowRight":
-      sliders[0].range = +sliders[0].range + STEP;
-      sliders[0].input.value = sliders[0].range;
-      req(sliders[0]);
-      break;
-    case "KeyA":
-    case "ArrowLeft":
-      sliders[0].range = +sliders[0].range - STEP;
-      sliders[0].input.value = sliders[0].range;
-      req(sliders[0]);
-      break;
-    case "KeyE":
-      sliders[1].range = +sliders[1].range + STEP;
-      sliders[1].input.value = sliders[1].range;
-      req(sliders[1]);
-      break;
-    case "KeyQ":
-      sliders[1].range = +sliders[1].range - STEP;
-      sliders[1].input.value = sliders[1].range;
-      req(sliders[1]);
-      break;
-    case "KeyC":
-      sliders[3].range = +sliders[3].range + STEP;
-      sliders[3].input.value = +sliders[3].range;
-      req(sliders[3]);
-      break;
-    case "KeyZ":
-      sliders[3].range = +sliders[3].range - STEP;
-      sliders[3].input.value = +sliders[3].range;
-      req(sliders[3]);
-      break;
-  }
-});
+document.addEventListener("keydown", addSliderHandler, false);
 
 initialize();

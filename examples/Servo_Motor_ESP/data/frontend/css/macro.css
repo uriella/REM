@@ -1,0 +1,158 @@
+.macro-container {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    width: 50%;
+    height: 25%;
+    margin: 8px auto;
+    background: white;
+}
+
+.form {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.macro__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.macro__form input {
+    margin: 12px auto;
+    width: 60%;
+}
+
+.form-name {
+    /* margin-bottom: 22px; */
+    width: 50%;
+}
+
+.macro__form-movement {
+    padding: 32px 0;
+    padding-bottom: 48px;
+    background: white;
+    border: 1px solid white;
+    box-shadow: 0 2px 3px #ccc;
+    width: 50%;
+    margin-bottom: 32px;
+}
+
+.macro__form-submit {
+    margin-bottom: 46px;
+}
+
+.movement-controls {
+    margin: 0 auto;
+    /* margin-top: 24px; */
+}
+
+.movement-controls button {
+    margin: 0px auto;
+    margin-top: 16px;
+    /* width: 225px; */
+}
+
+.movement-number {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+}
+
+.movement-number-div {
+    border: 1px solid black;
+    margin-right: 12px;
+    padding: 4px 6px;
+    box-sizing: border-box;
+    border-radius: 10%;
+    font: inherit;
+}
+
+.movement-number div:hover,
+.movement-number div:active,
+.movement-number div.active {
+    color: white;
+    background: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.macro__list-container {
+    background: white;
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    margin-bottom: 96px;
+}
+
+.macro__list-container h1 {
+    font-size: 16px;
+}
+
+.macro__list {
+    width: 90%;
+    height: 65%;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+}
+
+.macro__list li {
+    text-decoration: none;
+    list-style: none;
+    display: block;
+}
+
+.macro__list span {
+    display: inline-block;
+    height: 100%;
+    width: 70%;
+}
+
+.macro__list button {
+    width: 10%;
+    height: 80%;
+    font: inherit;
+    display: inline-block;
+}
+
+.macro__list-button {
+    margin: 16px auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movement__list-container {
+    display: none;
+}
+
+.movement__list li {
+    text-decoration: none;
+    list-style: none;
+    display: block;
+}
+
+.movement__list span {
+    display: inline-block;
+    height: 100%;
+    width: 70%;
+}
+
+.movement__list button {
+    width: 10%;
+    height: 80%;
+    font: inherit;
+    display: inline-block;
+}
+
+.movement__list-button {
+    margin: 0 auto;
+}
