@@ -9,19 +9,24 @@
     <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="css/keyboard.css">
     <link rel="stylesheet" href="css/macro.css">
+    <link rel="stylesheet" href="css/stream.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet"> 
 </head>
 <body>
-  <h1>REM - Enigma Dynamics [v.0.1]</h1>
-  <hr>
-  <div class="windowCurrent">
-      
-  </div>
+<div class="header-container">
+    <h1>REM <span>by Enigma Dynamics</span></h1>
+</div>
   <div class="main-container">
     <div class="container-side container-side-a">
-
+        <div class="container">
+            <div class="stream-container">
+                <h1>'Video Streaming'</h1>
+                <h1>Upcoming Feature</h1>
+            </div>
+        </div>
         <div class="container">
             <div class="slider-container">
+                <div class="slider-container__controls">
                     <div class="slider-control">
                         <div class="slider slider-1">
                             <p>Base</p>
@@ -35,7 +40,7 @@
                     <div class="slider-control">
                         <div class="slider slider-2">
                             <p>Grip</p>
-                            <input type="range" name="" id="" min=0 max=3000 step=50 value="1500" orient="vertical"
+                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
                             onchange="updateSliderValueDirect(sliders[1])"
                             oninput="updateSliderValueDirect(sliders[1])"
                             >
@@ -45,7 +50,7 @@
                     <div class="slider-control">
                         <div class="slider slider-3">
                             <p>Up/Down</p>
-                            <input type="range" name="" id="" min=0 max=3000 step= 50 value="1500" orient="vertical"
+                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
                             onchange="updateSliderValueDirect(sliders[2])"
                             oninput="updateSliderValueDirect(sliders[2])"
                             >
@@ -55,18 +60,21 @@
                     <div class="slider-control">
                         <div class="slider slider-4">
                             <p>forward/back</p>
-                            <input type="range" name="" id="" min=0 max=3000 step=50 value="1500" orient="vertical"
+                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
                             onchange="updateSliderValueDirect(sliders[3])"
                             oninput="updateSliderValueDirect(sliders[3])"
                             >
                             <div></div>
                         </div>
                     </div>
-                <button onClick="resetValue()" class="reset-button">
-                    Reset Value
-                </button>
+                </div>
+                <div class="slider-container__buttons">
+                    <button onClick="resetValue()" class="reset-button">
+                        Reset Value
+                    </button>
                 </div>
             </div>
+        </div>
       </div>
     <div class="container-side container-side-b">
         <div class="container">

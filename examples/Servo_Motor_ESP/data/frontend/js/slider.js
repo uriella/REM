@@ -75,7 +75,7 @@ const updateDisplayText = (slider) => {
 };
 
 const updateSliderValueKeyboard = (sliders, operators) => {
-  const STEP = 50;
+  const STEP = 20;
   
   sliders.range = operations[operators](+sliders.range, STEP);
   sliders.input.value = +sliders.range;

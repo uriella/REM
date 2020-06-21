@@ -1,0 +1,20 @@
+.stream-container {
+    width: 80%;
+    background: #07031a;
+    height: 400px;
+    margin: 0 auto;
+    border: 1px solid #07031a;
+    border-radius: 2.5%;
+    position: relative;
+}
+
+.stream-container h1 {
+    color: white;
+    font-size: 24px;
+}
+
+.stream-container h1:first-child {
+    margin-top: 20%;
+}
+
+
