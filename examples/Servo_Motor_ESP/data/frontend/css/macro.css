@@ -154,7 +154,8 @@
 }
 
 .movement__list-container {
-    display: none;
+    display: none !important;
+    background: red;
 }
 
 .movement__list li {

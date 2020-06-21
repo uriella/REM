@@ -1,3 +1,8 @@
+.network-container {
+    text-align: center;
+    margin: 64px auto;     
+}
+
 .ip-container, .ip-container__status-bar {
     background-color: #fff;
     margin: 16px auto;
@@ -11,10 +16,30 @@
     display: flex;
     align-items: center;
 }
+
 .ip-container__status-bar{
     background-color: #AA7777;
 }
 
 .ip-container__buttons {
     margin: 8px auto;
+}
+
+.ip-container h1 {
+    font-size: 24px;
+}
+
+.member-container {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 16px auto;
+    width: 50%;
+}
+
+.member-container h1 {
+    font-size: 24px;
 }

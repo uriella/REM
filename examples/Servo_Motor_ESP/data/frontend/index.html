@@ -19,27 +19,7 @@
   </div>
   <div class="main-container">
     <div class="container-side container-side-a">
-        <div class="container">
-            <div class="keyboard-container">
-                <h3>Keyboard<br>Roadmap</h3>
-                <div class="keyboard-desc">
-                        <h5>W & S</h5>
-                        <p>W: move right<br>S: move left</p>
-                </div>
-                <div class="keyboard-desc">
-                        <h5>A & D</h5>
-                        <p>A: open grip<br>S: close grip</p>
-                </div>
-                <div class="keyboard-desc">
-                        <h5>Q & E</h5>
-                        <p>Q: move up<br>E: move down</p>
-                </div>
-                <div class="keyboard-desc">
-                        <h5>Z & C</h5>
-                        <p>Z: move forward<br>C: move back</p>
-                </div>
-            </div>
-        </div>
+
         <div class="container">
             <div class="slider-container">
                     <div class="slider-control">
@@ -82,22 +62,63 @@
                             <div></div>
                         </div>
                     </div>
-                </div>
                 <button onClick="resetValue()" class="reset-button">
                     Reset Value
                 </button>
+                </div>
             </div>
       </div>
     <div class="container-side container-side-b">
         <div class="container">
-            <div class="ip-container">
-                <div class="ip-container__status-bar">
-                    <span class="ip-container__status">Not Connected</span>
+            <div class="button-container button-container-b">
+                <button class="network-container-button">Network</button>
+                <button class="macro-container-button">Macro</button>
+                <button class="keyboard-container-button">Keyboard</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="network-container">
+                <h1>Networks</h1>
+                <div class="ip-container">
+                    <h1>Connection</h1>
+                    <div class="ip-container__status-bar">
+                        <span class="ip-container__status">Not Connected</span>
+                    </div>
+                    <input type="text" placeholder="IP Address" value="192.168.0.30">
+                    <div class="ip-container__buttons">
+                        <button onClick="openWebsocket()" id="connect">CONNECT</button>
+                        <button onClick="closeWebsocket()" id="disconnect" disabled>DISCONNECT</button>
+                    </div>
                 </div>
-                <input type="text" placeholder="IP Address" value="192.168.0.30">
-                <div class="ip-container__buttons">
-                    <button onClick="openWebsocket()" id="connect">CONNECT</button>
-                    <button onClick="closeWebsocket()" id="disconnect" disabled>DISCONNECT</button>
+                <div class="member-container">
+                    <h1>Participants: </h1>
+                     <div class="member-container__list">
+                         <ul>
+                             <li>uriella</li>
+                             <li>shinteimai</li>
+                         </ul>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="keyboard-container">
+                <h3>Keyboard<br>Roadmap</h3>
+                <div class="keyboard-desc">
+                        <h5>W & S</h5>
+                        <p>W: move right<br>S: move left</p>
+                </div>
+                <div class="keyboard-desc">
+                        <h5>A & D</h5>
+                        <p>A: open grip<br>S: close grip</p>
+                </div>
+                <div class="keyboard-desc">
+                        <h5>Q & E</h5>
+                        <p>Q: move up<br>E: move down</p>
+                </div>
+                <div class="keyboard-desc">
+                        <h5>Z & C</h5>
+                        <p>Z: move forward<br>C: move back</p>
                 </div>
             </div>
         </div>
@@ -149,19 +170,22 @@
     </div>
  </div>
     <div class="container">
-        <div class="macro__list-container">
-            <h1>List of available macros: </h1>
-            <div class="macro__list">
-                <ul></ul>
+        <div class="main-macro-container">
+            <div class="macro__list-container">
+                <h1>List of available macros: </h1>
+                <div class="macro__list">
+                    <ul></ul>
+                </div>
+                <button class="macro__list-button">Fetch Macros</button>
             </div>
-            <button class="macro__list-button">Fetch Macros</button>
-        </div>
-        <div class=movement__list-container">
-            <h1 class="movement__list-name"></h1>
-            <div class="movement__list">
-                <ul></ul>
+            <div class="movement__list-container">
+                <h1>Movement Lists: </h1>
+                <h1 class="movement__list-name"></h1>
+                <div class="movement__list">
+                    <ul></ul>
+                </div>
+                <button class="movement__list-button">Execute Movement</button>
             </div>
-            <button class="movement__list-button">Execute Movement</button>
         </div>
     </div>
 

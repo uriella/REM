@@ -40,8 +40,6 @@ const sliders = [
   },
 ];
 
-const sliderContainer = document.querySelector('.slider-container');
-
 /*
     Variables
 */
