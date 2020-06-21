@@ -4,6 +4,7 @@
 let macros = [];
 let movements = [];
 let currentIndex = 0;
+let lastIndex = 0;
 const baseURL = 'http://localhost:3020';
 
 /*
@@ -17,6 +18,7 @@ const addMacroButton = document.querySelector(".form-button-add");
 const addMovementButton = document.querySelector(".movement-button-add");
 const removeMovementButton = document.querySelector('.movement-button-delete');
 const executeMovementsButton = document.querySelector('.movement__list-button');
+const addMovementPageButton = document.querySelector('.movement-add button');
 
 const macroNameInput = document.querySelector('.macro__form input');
 const movementNameInput = document.querySelector('.movement-name input');
@@ -33,34 +35,65 @@ const movementListSelector = document.querySelector('.movement__list ul');
     Functions
 */
 /* Helper Functions */
-const removeCurrentActiveClass = () => {
-    const temporaryArray = []
-    if (movements.length > 0) {
-        for (let numberDiv of movementSelectorContainer.childNodes) {
-            if (numberDiv.classList) {
-                    temporaryArray.push(numberDiv);
-                if (numberDiv.classList.contains('active')) { 
-                    numberDiv.classList.remove('active'); 
-                }
-            }
+
+const getNumberDivs = () => {
+    const numberDivs = [];
+    for (let numberDiv of movementSelectorContainer.childNodes) {
+        if (numberDiv.classList) {
+                numberDivs.push(numberDiv);
         }
     }
-
-    return temporaryArray;
+    return numberDivs;
 }
+
+const searchAddedNumberDiv = () => {
+    const numberDivs = getNumberDivs();
+    for (let numberDiv of numberDivs) {
+        if (numberDiv.classList.contains('movement-is-added')) {
+            return numberDiv;
+        }
+    }
+}
+
+const searchActiveNumberDiv = () => {
+    const numberDivs = getNumberDivs();
+    for (let numberDiv of numberDivs) {
+           if (numberDiv.classList.contains('active')) { 
+               return numberDiv;
+        }
+    }
+}
+
+const removeCurrentActiveClass = () => {
+    const activeNumberDiv = searchActiveNumberDiv();
+    if (activeNumberDiv) {
+        activeNumberDiv.classList.remove('active');
+    }
+};
 
 const setCurrentActiveClass = (index) => {
-    const temporaryArray = [];
-    if (movements.length > 0) {
-        for (let numberDiv of movementSelectorContainer.childNodes) {
-            if (numberDiv.classList) {
-                temporaryArray.push(numberDiv);
-            }
-        }
-    }
-    temporaryArray[index].classList.add('active');
+    const numberDivs = getNumberDivs();
+    numberDivs[index].classList.add('active');
+};
 
+const setCurrentAddedClass = (index) => {
+    const numberDivs = getNumberDivs();
+    if (numberDivs[index]) {
+        numberDivs[index].classList.add('movement-is-added-active');
+    }
+};
+
+const removeCurrentAddedActiveClass = () => {
+    const addedNumberDiv = searchAddedNumberDiv();
+    addedNumberDiv.classList.remove('movement-is-added-active');
+};
+
+const transformAddedMovementClass = () => {
+    const activeNumberDiv = searchActiveNumberDiv();
+    activeNumberDiv.classList.remove('active');
+    activeNumberDiv.classList.add('movement-is-added');
 }
+
 
 const getMovementInput = () => {
     angles = []; 
@@ -81,12 +114,19 @@ const resetMovementInput = () => {
 }
 
 const showMovement = (index) => {
-    const tempArr = removeCurrentActiveClass();
-    currentIndex = index;
-    if (index == tempArr.length - 1)  {
-        resetMovementInput();
+    console.log('idx: ' + index);
+    const numberDivs = getNumberDivs();
+    if (numberDivs[currentIndex].classList.contains('movement-is-added')) {
+        removeCurrentAddedActiveClass();
     }
     else {
+        removeCurrentActiveClass();
+    }
+
+
+    currentIndex = index;
+
+    if (movements[index]) {
         movementNameInput.value = movements[index].name;
         let i = 0;
         for (let angleInput of angleInputs) {
@@ -94,20 +134,29 @@ const showMovement = (index) => {
             i++;
         }
     }
+    else {
+        resetMovementInput();
+    }
 
-    setCurrentActiveClass(index);
+
+    if (numberDivs[index].classList.contains('movement-is-added')) {
+        setCurrentAddedClass(index);
+    }
+    else {
+        setCurrentActiveClass(index);
+    }
 }
 
 const createNumberDiv = () => {
     const numberElement = document.createElement('div');
     /* Remove active class from currentIndex - 1 and pass it into the currently created NumberSpan */
     removeCurrentActiveClass();
-    let curIndex = currentIndex;
+    let nextIndex = lastIndex;
 
     numberElement.classList.add('movement-number-div');
     numberElement.classList.add('active');
-    numberElement.textContent = String(+movements.length + 1);
-    numberElement.addEventListener('click', () => showMovement(curIndex));
+    numberElement.textContent = String(+nextIndex + 1);
+    numberElement.addEventListener('click', () => showMovement(+nextIndex));
 
     movementSelectorContainer.appendChild(numberElement);
 }
@@ -115,31 +164,88 @@ const createNumberDiv = () => {
 const deleteNumberDiv = () => {
     let numberDivs = movementSelectorContainer.childNodes;
     let len = numberDivs.length;
-    for (let i = 0; i < len; i++) {
-        if (numberDivs[i].classList) {
-            if (numberDivs[i].classList.contains('active')) { 
-               return movementSelectorContainer.removeChild(numberDivs[i + 1]);
+    let i = 0;
+
+    for (let numberDiv of numberDivs) {
+        if (numberDiv.classList) {
+            if (numberDiv.classList.contains('active')) { 
+                if (i == len - 1) {
+                    movementSelectorContainer.removeChild(numberDiv);
+                }
+                else {
+                    movementSelectorContainer.removeChild(numberDivs[i + 1]);
+                }
             }
         }
+        i += 1;
     }
 }
 
 /* Main Functions */
+const addNewMovementCheck = () => {
+    let angleInputCheck = true;
+    let movementNameInputCheck = true;
+
+    for (let angle of angleInputs) {
+        if (angle.value == null || angle.value == '') {
+            angleInputCheck = false;
+        }
+    }
+    if (movementNameInput.value == '') {
+        movementNameInputCheck = false;
+    }
+    return angleInputCheck && movementNameInputCheck;
+}
+
+const addedMovementCheck = (index) => {
+    let canMovementBeAddedCheck = true;
+
+    const numberDivs = getNumberDivs();
+    if (numberDivs[index].classList.contains('movement-is-added')) {
+            canMovementBeAddedCheck = false;
+    }
+
+    return canMovementBeAddedCheck;
+}
+
 const addNewMovement = () => {
-    const newMovement = getMovementInput();
-    movements.push(newMovement);
-    currentIndex += 1;
+    let localCurrentIndex = currentIndex;
+
+    let checkOne = addNewMovementCheck();
+    let checkTwo = addedMovementCheck(localCurrentIndex);
+
+    if (checkOne && checkTwo){
+        const newMovement = getMovementInput();
+        movements.push(newMovement);
+        transformAddedMovementClass();
+    }
+};
+
+const addNewMovementPage = () => {
+    lastIndex += 1;
+    currentIndex = lastIndex;
     createNumberDiv();
     resetMovementInput();
-
-};
+}
 
 const deleteCurrentMovement = () => {
-    movements.splice(currentIndex, 1);
-    deleteNumberDiv();
-    resetMovementInput();
-    
+    let movementsLengthCheck = true;
+    if (movements.length == 0) {
+        movementsLengthCheck = false;
+    }
+
+    if (movementsLengthCheck) {
+        movements.splice(currentIndex, 1);
+        deleteNumberDiv();
+        resetMovementInput();
+    }
 };
+
+const resetAllMovements = () => {
+    while (movements.length != 0) {
+        deleteCurrentMovement();
+    }
+}
 
 const fetchMacro = () => {
     // fetch(baseURL + '/devices/userId?');
@@ -216,7 +322,9 @@ const postMacro = () => {
     }
 
     macros.push(newMacro);
-    movements = [];
+    fetchMacro();
+    resetAllMovements();
+    
     // fetch()
 }
 
@@ -240,6 +348,7 @@ fetchMacroButton.addEventListener('click', fetchMacro);
 addMacroButton.addEventListener('click', postMacro);
 addMovementButton.addEventListener('click', addNewMovement);
 removeMovementButton.addEventListener('click', deleteCurrentMovement);
+addMovementPageButton.addEventListener('click', addNewMovementPage)
 
 executeMovementsButton.addEventListener('click', executeMacro);
 

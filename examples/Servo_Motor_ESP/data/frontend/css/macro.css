@@ -64,7 +64,6 @@
     margin-bottom: 24px;
     box-sizing: border-box;
 }
-
 .movement-number-div {
     border: 1px solid black;
     margin-right: 12px;
@@ -72,6 +71,10 @@
     box-sizing: border-box;
     border-radius: 10%;
     font: inherit;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .movement-number div:hover,
@@ -82,6 +85,26 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.movement-add {
+    width: 50%;
+    margin: 16px auto;
+}
+
+.movement-add button{
+    margin: 0 auto;
+    display: flex;
+    height: 8px;
+    width: 8px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
 
 .macro__list-container {
     background: white;
@@ -155,4 +178,17 @@
 
 .movement__list-button {
     margin: 0 auto;
+}
+
+/*
+    Dynamic Classes for JS
+*/
+.movement-is-added {
+    background: #438a5e;
+}
+
+.movement-is-added:hover,
+.movement-is-added:active,
+.movement-is-added-active {
+    background: #cff6cf;
 }
