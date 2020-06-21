@@ -1,6 +1,9 @@
 /*
     Global Variables
 */
+let lastMacroContainer;
+let lastListContainer;
+
 let macros = [];
 let movements = [];
 let currentIndex = 0;
@@ -10,8 +13,18 @@ const baseURL = 'http://localhost:3020';
 /*
     Query Selectors
 */
+const macroFirstContainer = document.querySelector('.macro-first-container');
+const macroSecondContainer = document.querySelector('.macro-second-container');
+const macroThirdContainer = document.querySelector('.macro-third-container')
+
+const macroListContainer = document.querySelector('.macro__list-container');
+const movementListContainer = document.querySelector('.movement__list-container')
+
 const movementSelectorContainer = document.querySelector('.movement-number');
 const numberDivArray = document.querySelectorAll('.movement-number-div');
+
+const showMacroListButton = document.querySelector('.macro-list-button');
+const showAddMacroButton = document.querySelector('.add-macro-button');
 
 const fetchMacroButton = document.querySelector('.macro__list-button');
 const addMacroButton = document.querySelector(".form-button-add");
@@ -34,6 +47,34 @@ const movementListSelector = document.querySelector('.movement__list ul');
 /*
     Functions
 */
+/* Display Handler */
+const hideMacroContainer = (container) => {
+    if (container.classList) {
+        container.classList.add('hide-container');
+    }
+};
+
+const showMacroContainer = (container) => {
+    hideMacroContainer(lastMacroContainer);
+
+    if (container.classList) {
+        container.classList.remove('hide-container');
+    };
+
+    lastMacroContainer = container;
+};
+
+const hideListContainer = (container) => {
+    console.log()
+    container.classList.add('hide-container');
+};
+
+const showListContainer = (container) => {
+    hideListContainer(lastListContainer);
+    container.classList.remove('hide-container');
+    lastListContainer = container;
+};
+
 /* Helper Functions */
 
 const getNumberDivs = () => {
@@ -114,7 +155,6 @@ const resetMovementInput = () => {
 }
 
 const showMovement = (index) => {
-    console.log('idx: ' + index);
     const numberDivs = getNumberDivs();
     if (numberDivs[currentIndex].classList.contains('movement-is-added')) {
         removeCurrentAddedActiveClass();
@@ -179,6 +219,18 @@ const deleteNumberDiv = () => {
         }
         i += 1;
     }
+};
+
+const deleteAllNumberDiv = () => {
+    let numberDivs = movementSelectorContainer.childNodes;
+    for (let numberDiv of numberDivs) {
+        movementSelectorContainer.removeChild(numberDiv);
+    }
+}
+
+const resetAllNumberDivs = () => {
+    deleteAllNumberDiv();
+    createNumberDiv();
 }
 
 /* Main Functions */
@@ -253,10 +305,11 @@ const fetchMacro = () => {
     let newElementButton;
     let newElementSpan;
     let index = 0;
-
+    console.log('asd1');
     while (macroListSelector.firstChild) {
         macroListSelector.removeChild(macroListSelector.firstChild);
     }
+    console.log('asd2');
 
     for (let macro of macros) {
         let currentIndex = index;
@@ -318,12 +371,15 @@ const executeMacro = (macroIndex) => {
 const postMacro = () => {
     const newMacro = {
         name: macroNameInput.value,
-        movements: movements
+        movements: [
+            ...movements
+        ]
     }
 
     macros.push(newMacro);
     fetchMacro();
     resetAllMovements();
+    resetAllNumberDivs();
     
     // fetch()
 }
@@ -337,7 +393,11 @@ const toggleOutSliderListener = () => {
 }
 
 /* Initializer function */
-const init = () => {
+const macroInitialize = () => {
+    lastMacroContainer = macroFirstContainer;
+    lastListContainer = macroListContainer;
+    hideMacroContainer(macroSecondContainer);
+    hideListContainer(movementListContainer);
     createNumberDiv();
 }
 
@@ -349,8 +409,10 @@ addMacroButton.addEventListener('click', postMacro);
 addMovementButton.addEventListener('click', addNewMovement);
 removeMovementButton.addEventListener('click', deleteCurrentMovement);
 addMovementPageButton.addEventListener('click', addNewMovementPage)
-
 executeMovementsButton.addEventListener('click', executeMacro);
+
+showMacroListButton.addEventListener('click', () => showListContainer(macroListContainer));
+showAddMacroButton.addEventListener('click', () => showListContainer(macroSecondContainer));
 
 movementNameInput.addEventListener('focusin', (e) => toggleInSliderListener(e));
 for (let angleInput of angleInputs) {
@@ -363,6 +425,6 @@ for (let angleInput of angleInputs) {
 }
 
 /* Initializer */
-init();
+macroInitialize();
 
 

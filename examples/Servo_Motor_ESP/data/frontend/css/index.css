@@ -33,7 +33,7 @@ h1 {
 }
 
 .container-side {
-    height: 85vh;
+    height: 88vh;
     width: 50%;
 }
 
@@ -43,6 +43,8 @@ h1 {
     background: white;
     display: flex;
     flex-direction: column;
+    width: 45%;
+    margin: 0 auto;
 }
 
 .container {
@@ -71,7 +73,7 @@ h1 {
 */
 
 .hide-container {
-    display: none;
+    display: none !important;
 }
 
 

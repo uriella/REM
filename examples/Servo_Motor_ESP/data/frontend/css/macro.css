@@ -1,23 +1,36 @@
 .macro-container {
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 3px #ccc;
-    width: 50%;
+    width: 90%;
     height: 25%;
     margin: 8px auto;
+    margin-top: 36px;
     background: white;
+    display: flex;
+    flex-direction: column;
 }
 
-.form {
+.macro-container h1 {
+    font-size: 24px;   
+    margin-bottom: 16px;
+}
+
+.macro-second-container {
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .macro__form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.macro__form label {
+    display: inline-block;
+    width: 20%;
 }
 
 .macro__form input {
@@ -25,34 +38,34 @@
     width: 60%;
 }
 
-.form-name {
-    /* margin-bottom: 22px; */
-    width: 50%;
+.macro__form-main {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
+    margin-right: 36px;
+}
+
+.macro__form-submit {
+    margin-bottom: 12px;
 }
 
 .macro__form-movement {
     padding: 32px 0;
-    padding-bottom: 48px;
+    padding-bottom: 24px;
     background: white;
-    border: 1px solid white;
-    box-shadow: 0 2px 3px #ccc;
     width: 50%;
     margin-bottom: 32px;
-}
-
-.macro__form-submit {
-    margin-bottom: 46px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 3px #ccc;
 }
 
 .movement-controls {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
-    /* margin-top: 24px; */
 }
 
 .movement-controls button {
-    margin: 0px auto;
-    margin-top: 16px;
-    /* width: 225px; */
+    margin-top: 8px;
 }
 
 .movement-number {
@@ -64,6 +77,7 @@
     margin-bottom: 24px;
     box-sizing: border-box;
 }
+
 .movement-number-div {
     border: 1px solid black;
     margin-right: 12px;
@@ -103,8 +117,6 @@
     align-items: center;
     text-align: center;
 }
-
-
 
 .macro__list-container {
     background: white;
@@ -154,7 +166,6 @@
 }
 
 .movement__list-container {
-    display: none !important;
     background: red;
 }
 

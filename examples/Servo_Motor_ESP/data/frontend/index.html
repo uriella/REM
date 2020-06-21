@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REM - Enigma Dynamics</title>
+    <title>REM</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/connection.css">
     <link rel="stylesheet" href="css/slider.css">
@@ -132,11 +132,36 @@
         </div>
         <div class="container">
             <div class="macro-container">
-                <h1>Macro</h1>
-                <div class="form">
-                    <div class="macro__form form-name">
-                        <label for="macro-name">Macro Name</label>
-                        <input type="text" name="macro-name" id="macro-name">
+                <div class="macro-first-container">
+                    <div class="main-macro-container">
+                        <div class="macro__list-container">
+                            <h1>List of available macros: </h1>
+                            <div class="macro__list">
+                                <ul></ul>
+                            </div>
+                            <button class="macro__list-button">Fetch Macros</button>
+                        </div>
+                        <div class="movement__list-container">
+                            <h1>Movement Lists: </h1>
+                            <h1 class="movement__list-name"></h1>
+                            <div class="movement__list">
+                                <ul></ul>
+                            </div>
+                            <button class="movement__list-button">Execute Movement</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="macro-second-container">
+                    <div class="macro__form-main">
+                        <h1>Add Macro</h1>
+                        <div class="macro__form form-name">
+                            <label for="macro-name">Macro Name</label>
+                            <input type="text" name="macro-name" id="macro-name">
+                        </div>
+                        <div class="macro__form-submit">
+                            <button class="form-button-add">Add Macro</button>
+                        </div>
                     </div>
                     <div class="macro__form-movement">
                         <div class="macro__form movement-number">
@@ -145,7 +170,7 @@
                             <button>+</button>
                         </div>
                         <div class="macro__form movement-name">
-                            <label for="movement-name">Movement Name</label>
+                            <label for="movement-name">Name</label>
                             <input type="text" name="movement-name" id="movement-name" required>
                         </div>
                         <div class="macro__form movement-angle1">
@@ -169,33 +194,17 @@
                             <button class="movement-button-delete">Delete Current Movement</button>
                         </div>
                     </div>
-                    <div class="macro__form-submit">
-                        <button class="form-button-add">Add Macro</button>
+                </div>
+                <div class="macro-third-container">
+                    <div class="button-container">
+                        <button class="macro-list-button">Macro List</button>
+                        <button class="add-macro-button">Add Macro</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
  </div>
-    <div class="container">
-        <div class="main-macro-container">
-            <div class="macro__list-container">
-                <h1>List of available macros: </h1>
-                <div class="macro__list">
-                    <ul></ul>
-                </div>
-                <button class="macro__list-button">Fetch Macros</button>
-            </div>
-            <div class="movement__list-container">
-                <h1>Movement Lists: </h1>
-                <h1 class="movement__list-name"></h1>
-                <div class="movement__list">
-                    <ul></ul>
-                </div>
-                <button class="movement__list-button">Execute Movement</button>
-            </div>
-        </div>
-    </div>
 
     <script src="js/index.js"></script>
     <script src="js/slider.js"></script>
