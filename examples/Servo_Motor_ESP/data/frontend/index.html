@@ -15,68 +15,11 @@
 <body>
 <div class="header-container">
     <h1>REM <span>by Enigma Dynamics</span></h1>
+      <button class="main-toggle-button">Toggle Side-Container</button>
 </div>
   <div class="main-container">
-    <div class="container-side container-side-a">
-        <div class="container">
-            <div class="stream-container">
-                <h1>'Video Streaming'</h1>
-                <h1>Upcoming Feature</h1>
-            </div>
-        </div>
-        <div class="container">
-            <div class="slider-container">
-                <div class="slider-container__controls">
-                    <div class="slider-control">
-                        <div class="slider slider-1">
-                            <p>Base</p>
-                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
-                            onchange="updateSliderValueDirect(sliders[0])"
-                            oninput="updateSliderValueDirect(sliders[0])"
-                            >
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="slider-control">
-                        <div class="slider slider-2">
-                            <p>Grip</p>
-                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
-                            onchange="updateSliderValueDirect(sliders[1])"
-                            oninput="updateSliderValueDirect(sliders[1])"
-                            >
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="slider-control">
-                        <div class="slider slider-3">
-                            <p>Up/Down</p>
-                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
-                            onchange="updateSliderValueDirect(sliders[2])"
-                            oninput="updateSliderValueDirect(sliders[2])"
-                            >
-                            <div></div>
-                        </div>
-                    </div>
-                    <div class="slider-control">
-                        <div class="slider slider-4">
-                            <p>forward/back</p>
-                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
-                            onchange="updateSliderValueDirect(sliders[3])"
-                            oninput="updateSliderValueDirect(sliders[3])"
-                            >
-                            <div></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="slider-container__buttons">
-                    <button onClick="resetValue()" class="reset-button">
-                        Reset Value
-                    </button>
-                </div>
-            </div>
-        </div>
-      </div>
-    <div class="container-side container-side-b">
+
+   <div class="container-side container-side-b">
         <div class="container">
             <div class="button-container button-container-b">
                 <button class="network-container-button">Network</button>
@@ -151,7 +94,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="macro-second-container">
                     <div class="macro__form-main">
                         <h1>Add Macro</h1>
@@ -204,11 +146,79 @@
             </div>
         </div>
     </div>
+    <div class="container-side container-side-a">
+        <div class="container">
+            <div class="stream-container">
+                <div class="stream-container__video">
+                </div>
+                <div class="stream-container__buttons">
+                    <button class="play-video">Play</button>
+                    <button class="pause-video">Pause</button>
+                </div>
+                <h1>'Video Streaming'</h1>
+                <h1>Upcoming Feature</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="slider-container">
+                <div class="slider-container__controls">
+                    <div class="slider-control">
+                        <div class="slider slider-1">
+                            <p>Base</p>
+                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
+                            onchange="updateSliderValueDirect(sliders[0])"
+                            oninput="updateSliderValueDirect(sliders[0])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="slider-control">
+                        <div class="slider slider-2">
+                            <p>Grip</p>
+                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
+                            onchange="updateSliderValueDirect(sliders[1])"
+                            oninput="updateSliderValueDirect(sliders[1])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="slider-control">
+                        <div class="slider slider-3">
+                            <p>Up/Down</p>
+                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
+                            onchange="updateSliderValueDirect(sliders[2])"
+                            oninput="updateSliderValueDirect(sliders[2])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="slider-control">
+                        <div class="slider slider-4">
+                            <p>forward/back</p>
+                            <input type="range" name="" id="" min=0 max=3000 value="1500" orient="vertical"
+                            onchange="updateSliderValueDirect(sliders[3])"
+                            oninput="updateSliderValueDirect(sliders[3])"
+                            >
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-container__buttons">
+                    <button onClick="resetValue()" class="reset-button">
+                        Reset Value
+                    </button>
+                </div>
+            </div>
+        </div>
+      </div>
  </div>
 
     <script src="js/index.js"></script>
     <script src="js/slider.js"></script>
     <script src="js/websocket.js"></script>
-    <script src="js/macro.js"></script>
+
+    <script src="js/macro/index.js"></script>
+    <script src="js/macro/display.js"></script>
+    <script src="js/macro/event.js"></script>
 </body>
 </html>
