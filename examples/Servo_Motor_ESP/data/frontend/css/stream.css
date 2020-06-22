@@ -17,4 +17,29 @@
     margin-top: 20%;
 }
 
+.stream-container__video {
+    width: 320px;
+    height: 240px;
+    margin: 32px auto;
+}
+
+.stream-container__video img{
+    width: 320px;
+    height: 240px;
+    margin: 32px auto;
+    display: none;
+}
+
+.stream-container__buttons {
+    margin: 0 auto;
+}
+
+.stream-container__buttons button {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
 

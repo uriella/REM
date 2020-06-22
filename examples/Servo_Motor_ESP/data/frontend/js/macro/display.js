@@ -1,3 +1,10 @@
+/*
+    Functions
+*/
+
+/*
+    A. Display Controller Functions
+*/
 const hideMacroContainer = (container) => {
     if (container.classList) {
         container.classList.add('hide-container');
@@ -15,7 +22,6 @@ const showMacroContainer = (container) => {
 };
 
 const hideListContainer = (container) => {
-    console.log()
     container.classList.add('hide-container');
 };
 
@@ -24,8 +30,6 @@ const showListContainer = (container) => {
     container.classList.remove('hide-container');
     lastListContainer = container;
 };
-
-/* Helper Functions */
 
 const getNumberDivs = () => {
     const numberDivs = [];
@@ -172,14 +176,15 @@ const deleteNumberDiv = () => {
 };
 
 const deleteAllNumberDiv = () => {
-    let numberDivs = movementSelectorContainer.childNodes;
-    for (let numberDiv of numberDivs) {
-        movementSelectorContainer.removeChild(numberDiv);
+    while (movementSelectorContainer.firstChild) {
+        movementSelectorContainer.removeChild(movementSelectorContainer.lastChild);
     }
 }
 
 const resetAllNumberDivs = () => {
     deleteAllNumberDiv();
+    currentIndex = 0;
+    lastIndex = 0;
     createNumberDiv();
 }
 
@@ -244,12 +249,8 @@ const deleteCurrentMovement = () => {
 };
 
 const resetAllMovements = () => {
-    while (movements.length != 0) {
-        deleteCurrentMovement();
-    }
+    resetMovementInput();
 }
-
-
 
 const toggleInSliderListener = (input) => {
     document.removeEventListener('keydown', addSliderHandler, false);
