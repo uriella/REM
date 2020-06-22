@@ -44,7 +44,9 @@ const req = () => {
   }
   //  console.log('code: ' + code); 
   /* code expected output: a1000b2000c3000d4000 */
-  ws.send(code);
+  if (ws) {
+    ws.send(code);
+  }
 };
 
 const res = () => {

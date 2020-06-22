@@ -1,22 +1,36 @@
+
 /*
     postMacro()
     description:
     Post a macro into the REST API database.
 */
 const postMacro = () => {
-    const newMacro = {
-        name: macroNameInput.value,
-        movements: [
-            ...movements
-        ]
-    }
-
-    // fetch(baseURL);
-
-    macros.push(newMacro);
-    fetchMacro();
-    resetAllMovements();
-    resetAllNumberDivs();
+    fetch('http://localhost:3030/macro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: macroNameInput.value,
+            movements: movements
+        })
+    })
+    .then(res => {
+        if (res.status != 201) {
+            throw new Error('Failed to post macro data.');
+        }
+        return res.json();
+    })
+    .then(resData => {
+        console.log(resData.message);
+        console.log('Created Macro: ' + resData.macro);
+        fetchMacro();
+        resetAllMovements();
+        resetAllNumberDivs();
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
 
 /*
@@ -25,52 +39,51 @@ const postMacro = () => {
     fetch all the macros from the database.
 */
 const fetchMacro = () => {
-    // fetch(baseURL + '/devices/userId?');
-    let newElement;
-    let newElementButton;
-    let newElementSpan;
     let index = 0;
 
-    
-    console.log('test1');
+    fetch('http://localhost:3030/macro', {
+        method: 'GET'
+    })
+    .then(res => {
+        if (res.status != 200) {
+            throw new Error('Failed to fetch macro data.');
+        }
+        return res.json();
+    })
+    .then(resData => {
+        console.log("Successfully fetched macros: " + resData.macros);
+        macros = [
+            ...resData.macros
+        ]
 
-    for (let macro of macros) {
-        console.log('test2');
-        let currentIndex = index;
-        newElement = document.createElement('li');
+        while (macroListSelector.firstChild) {
+            macroListSelector.removeChild(macroListSelector.lastChild);
+        }
 
-        newElementSpan = document.createElement('span');
-        newElementSpan.textContent = macro.name;
+        for (let macro of macros) {
+            let newElement;
+            let newElementButton;
+            let newElementSpan;
+            let currentIndex = index;
+            newElement = document.createElement('li');
 
-        newElementButton = document.createElement('button');
-        newElementButton.textContent = '+';
-        newElementButton.addEventListener('click', () => loadMovements(currentIndex));
+            newElementSpan = document.createElement('span');
+            newElementSpan.textContent = macro.macroName;
 
-        newElement.appendChild(newElementSpan);
-        newElement.appendChild(newElementButton)
-        macroListSelector.appendChild(newElement);
+            newElementButton = document.createElement('button');
+            newElementButton.textContent = '+';
+            newElementButton.addEventListener('click', () => loadMovements(currentIndex));
 
-        index += 1;
-    }
-}
+            newElement.appendChild(newElementSpan);
+            newElement.appendChild(newElementButton)
+            macroListSelector.appendChild(newElement);
 
-/*
-    executeMovement()
-    description:
-    Execute a certain movement from a set of angles. 
-*/
-const executeMovement = (angles) => {
-    let index = 0;
-    console.log('angles arr: ' + angles);
-    for (let angle of angles) {
-        console.log('angles #' + index + ': ' + angle);
-        sliders[index].range = angle;
-        sliders[index].input.value = angle;
-        updateDisplayText(sliders[index]);
-        index += 1;
-    }
-
-    req()
+            index += 1;
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    });
 }
 
 /*
@@ -79,20 +92,77 @@ const executeMovement = (angles) => {
     load movements from a certain macro index.
 */
 const loadMovements = (macroIndex) => {
+    showListContainer(movementListContainer);
+
+    while (movementListSelector.firstChild) {
+        movementListSelector.removeChild(movementListSelector.lastChild);
+    }
+
+    for (let element of movementListDiv.childNodes) {
+        if (element.classList) {
+            if (element.classList.contains('movement__list-button')) {
+                movementListDiv.removeChild(element);
+            }
+        }
+    }
+
     const currentMovements = macros[macroIndex].movements;
     let index = 0;
     for (let movement of currentMovements) {
         let currentIndex = index;
-        newElement = document.createElement('li');
+        let newEl;
+        let newElButton;
+        let newExecutionButton;
+        let newElSpan;
 
-        newElementSpan = document.createElement('span');
-        newElementSpan.textContent = movement.name;
+        newEl = document.createElement('li');
 
-        newElementButton = document.createElement('button');
-        newElementButton.textContent = 'Exec';
-        newElementButton.addEventListener('click', executeMovement(movement.angles))
+        newElSpan = document.createElement('span');
+        newElSpan.textContent = movement.movementName;
+
+        newElButton = document.createElement('button');
+        newElButton.textContent = 'x';
+        newElButton.addEventListener('click', () => executeMovement(macroIndex, currentIndex))
+
+        newEl.appendChild(newElSpan);
+        newEl.appendChild(newElButton);
+        movementListSelector.appendChild(newEl);
+
         index += 1;
     }
+        newExecutionButton = document.createElement('button');
+        newExecutionButton.textContent = 'Execute Movement';
+        newExecutionButton.classList.add('movement__list-button');
+        newExecutionButton.addEventListener('click', () => executeMacro(macroIndex));
+
+        movementListDiv.appendChild(newExecutionButton);
+}
+
+/*
+    executeMovement()
+    description:
+    Execute a certain movement from a set of angles. 
+*/
+const executeMovement = (macroIndex, movementIndex) => {
+    const currentMovement = macros[macroIndex].movements[movementIndex];
+
+    const angles = currentMovement.angles;
+
+    sliders[0].range = angles.angleOne;
+    sliders[1].range = angles.angleTwo;
+    sliders[2].range = angles.angleThree;
+    sliders[3].range = angles.angleFour;
+
+    sliders[0].input.value = angles.angleOne;
+    sliders[1].input.value = angles.angleTwo;
+    sliders[2].input.value = angles.angleThree;
+    sliders[3].input.value = angles.angleFour;
+
+    for (let slider of sliders) {
+        updateDisplayText(slider);
+    }
+
+    req();
 }
 
 /*
@@ -100,10 +170,22 @@ const loadMovements = (macroIndex) => {
     description:
     Execute a whole macro with a set of movements.
 */
+
 const executeMacro = (macroIndex) => {
     const macro = macros[macroIndex];
-    for (let movement of macro.movements) {
-        executeMovement(movement.angles)
-    }
+
+    let movementIndex = 0;
+
+    let movementInterval = window.setInterval(() => {
+        if (!(movementIndex < macro.movements.length)) {
+            clearInterval(movementInterval);    
+            return;
+        }
+        console.log(movementIndex);
+        executeMovement(macroIndex, movementIndex);
+        movementIndex += 1;
+    }, 1500) 
 };
+
+
 

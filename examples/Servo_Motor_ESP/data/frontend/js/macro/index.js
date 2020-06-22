@@ -3,6 +3,8 @@
 */
 let lastMacroContainer;
 let lastListContainer;
+let lastMacroListContainer;
+
 
 let macros = [];
 let movements = [];
@@ -32,6 +34,8 @@ const removeMovementButton = document.querySelector('.movement-button-delete');
 const executeMovementsButton = document.querySelector('.movement__list-button');
 const addMovementPageButton = document.querySelector('.movement-add button');
 
+const movementListBackButton = document.querySelector('.movement__list-back-button');
+
 const macroNameInput = document.querySelector('.macro__form input');
 const movementNameInput = document.querySelector('.movement-name input');
 const angleInputs = [
@@ -40,6 +44,8 @@ const angleInputs = [
      document.querySelector('.movement-angle3 input'),
      document.querySelector('.movement-angle4 input')
 ];
+
+const movementListDiv = document.querySelector('.movement__list');
 
 const macroListSelector = document.querySelector('.macro__list ul');
 const movementListSelector = document.querySelector('.movement__list ul');

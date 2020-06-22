@@ -19,6 +19,16 @@ const macroController = require('../controllers/macro');
 router.get('/macro', macroController.getMacros);
 
 /*
+    Add Macro
+    path: /macro
+    method: PUT
+    description:
+        Put a macro inside the database.
+*/
+router.post('/macro', macroController.addMacro);
+
+
+/*
     Get Specific Macro
     path: /macro/:macroId
     method: GET
@@ -27,13 +37,5 @@ router.get('/macro', macroController.getMacros);
 */
 router.get('/macro/:macroId', macroController.getMacro);
 
-/*
-    Add Macro
-    path: /macro
-    method: PUT
-    description:
-        Put a macro inside the database.
-*/
-router.put('/macro', macroController.addMacro);
 
 module.exports = router;

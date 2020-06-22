@@ -6,9 +6,7 @@
     A. Display Controller Functions
 */
 const hideMacroContainer = (container) => {
-    if (container.classList) {
-        container.classList.add('hide-container');
-    }
+    container.classList.add('hide-container');
 };
 
 const showMacroContainer = (container) => {
@@ -30,6 +28,7 @@ const showListContainer = (container) => {
     container.classList.remove('hide-container');
     lastListContainer = container;
 };
+
 
 const getNumberDivs = () => {
     const numberDivs = [];
@@ -96,8 +95,13 @@ const getMovementInput = () => {
         angles.push(angle.value);
     }
      return {
-        name: movementNameInput.value,
-        angles: angles
+        movementName: movementNameInput.value,
+        angles: {
+            angleOne: angles[0],
+            angleTwo: angles[1],
+            angleThree: angles[2],
+            angleFour: angles[3]
+        }
       };
 }
 
@@ -159,7 +163,6 @@ const deleteNumberDiv = () => {
     let numberDivs = movementSelectorContainer.childNodes;
     let len = numberDivs.length;
     let i = 0;
-
     for (let numberDiv of numberDivs) {
         if (numberDiv.classList) {
             if (numberDiv.classList.contains('active')) { 
@@ -243,9 +246,15 @@ const deleteCurrentMovement = () => {
 
     if (movementsLengthCheck) {
         movements.splice(currentIndex, 1);
-        deleteNumberDiv();
-        resetMovementInput();
     }
+    if (currentIndex > 0) {
+        currentIndex -= 1;
+        lastIndex = currentIndex;
+    }
+    deleteNumberDiv();
+    resetMovementInput();
+    setCurrentActiveClass(currentIndex);
+
 };
 
 const resetAllMovements = () => {

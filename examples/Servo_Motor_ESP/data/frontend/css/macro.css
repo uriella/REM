@@ -166,7 +166,28 @@
 }
 
 .movement__list-container {
-    background: red;
+    background: white;
+    margin: 0 auto;
+    margin-bottom: 24px;
+}
+
+.movement__list {
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    width: 80%;
+    min-height: 200px;
+}
+
+.movement__list ul li button {
+    text-align: center;
+}
+
+.movement__list-container button {
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
 .movement__list li {
@@ -181,7 +202,7 @@
     width: 70%;
 }
 
-.movement__list button {
+.movement__list ul button {
     width: 10%;
     height: 80%;
     font: inherit;
@@ -190,6 +211,10 @@
 
 .movement__list-button {
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 /*
